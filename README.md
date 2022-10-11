@@ -1,5 +1,9 @@
 # Billing
 
+Billing was conceived for the apprenticeship of Quero Educação interns. The project simulates a monthly fee management API, similar (but smaller) to the Quero Pago product.
+
+----------------------------------------------------------------------------------------------
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
