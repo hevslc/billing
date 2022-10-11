@@ -5,10 +5,14 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 config :billing,
   ecto_repos: [Billing.Repo]
+
+config :billing, Billing.Repo,
+migration_primary_key: [type: :binary_id],
+migration_foreign_key: [type: :binary_id]
 
 # Configures the endpoint
 config :billing, BillingWeb.Endpoint,
