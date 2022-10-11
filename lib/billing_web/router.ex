@@ -1,8 +1,10 @@
 defmodule BillingWeb.Router do
   use BillingWeb, :router
+  alias BillingWeb.Plugs.UUIDChecker
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug UUIDChecker
   end
 
   scope "/api", BillingWeb do
