@@ -1,4 +1,7 @@
 defmodule Billing.Factory do
+  @moduledoc """
+  Data for tests
+  """
   use ExMachina.Ecto, repo: Billing.Repo
   alias Billing.{Institution, Student, Enrollment, Payment}
 
