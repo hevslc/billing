@@ -13,4 +13,12 @@ defmodule BillingWeb.InstitutionsController do
       |> render("create.json", institution: institution)
     end
   end
+
+  def show(conn, %{"id" => id}) do
+    with {:ok, %Institution{} = institution} <- Billing.get_institution_by_id(id) do
+      conn
+      |> put_status(:ok)
+      |> render("institution.json", institution: institution)
+    end
+  end
 end

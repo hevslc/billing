@@ -7,6 +7,11 @@ defmodule BillingWeb.Router do
 
   scope "/api", BillingWeb do
     pipe_through :api
+
+    resources "/institutions", InstitutionsController
+    resources "/students", StudentsController
+    resources "/enrollments", EnrollmentsController
+    resources "/payments", PaymentsController
   end
 
   # Enables LiveDashboard only for development
