@@ -21,4 +21,20 @@ defmodule BillingWeb.InstitutionsController do
       |> render("institution.json", institution: institution)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %Institution{}} <- Billing.delete_institution(id) do
+      conn
+      |> put_status(:no_content)
+      |> text("")
+    end
+  end
+
+  def update(conn, %{} = params) do
+    with {:ok, %Institution{} = institution} <- Billing.update_institution(params) do
+        conn
+        |> put_status(:ok)
+        |> render("institution.json", institution: institution)
+    end
+  end
 end

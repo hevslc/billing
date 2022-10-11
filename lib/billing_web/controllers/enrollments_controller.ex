@@ -21,4 +21,20 @@ defmodule BillingWeb.EnrollmentsController do
       |> render("enrollment.json", enrollment: enrollment)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %Enrollment{}} <- Billing.delete_enrollment(id) do
+      conn
+      |> put_status(:no_content)
+      |> text("")
+    end
+  end
+
+  def update(conn, %{} = params) do
+    with {:ok, %Enrollment{} = enrollment} <- Billing.update_enrollment(params) do
+        conn
+        |> put_status(:ok)
+        |> render("enrollment.json", enrollment: enrollment)
+    end
+  end
 end

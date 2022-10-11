@@ -21,4 +21,20 @@ defmodule BillingWeb.PaymentsController do
       |> render("payment.json", payment: payment)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %Payment{}} <- Billing.delete_payment(id) do
+      conn
+      |> put_status(:no_content)
+      |> text("")
+    end
+  end
+
+  def update(conn, %{} = params) do
+    with {:ok, %Payment{} = payment} <- Billing.update_payment(params) do
+        conn
+        |> put_status(:ok)
+        |> render("payment.json", payment: payment)
+    end
+  end
 end

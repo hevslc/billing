@@ -21,4 +21,20 @@ defmodule BillingWeb.StudentsController do
       |> render("student.json", student: student)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    with {:ok, %Student{}} <- Billing.delete_student(id) do
+      conn
+      |> put_status(:no_content)
+      |> text("")
+    end
+  end
+
+  def update(conn, %{} = params) do
+    with {:ok, %Student{} = student} <- Billing.update_student(params) do
+        conn
+        |> put_status(:ok)
+        |> render("student.json", student: student)
+    end
+  end
 end
