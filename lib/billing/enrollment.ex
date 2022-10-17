@@ -26,7 +26,7 @@ defmodule Billing.Enrollment do
     field :number_payments, :integer
     field :due_day, :integer
 
-    has_many :payments, Payment
+    has_many :payments, Payment, on_delete: :delete_all
     belongs_to :institution, Institution
     belongs_to :student, Student
 

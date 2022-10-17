@@ -19,7 +19,7 @@ defmodule Billing.Institution do
     field :cnpj, :string
     field :type, Ecto.Enum, values: [:university, :school, :daycare]
 
-    has_many :enrollments, Enrollment
+    has_many :enrollments, Enrollment, on_delete: :delete_all
 
     timestamps()
   end
