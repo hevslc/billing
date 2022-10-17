@@ -26,17 +26,19 @@ defmodule Billing.Enrollments.Create do
     today = DateTime.now!("Etc/UTC")
     due_date = %Date{day: enrollment.due_day, month: today.month, year: today.year}
     due_date = if today.day > enrollment.due_day, do: increase_month(due_date), else: due_date
-    {enrollment, due_date}
+    {:ok, enrollment, due_date}
   end
 
   defp get_due_date(error), do: error
 
-  defp get_payment_value({enrollment, due_date}) do
+  defp get_payment_value({:ok, enrollment, due_date}) do
     payment_value = Decimal.div(enrollment.course_value, enrollment.number_payments)
-    {enrollment, due_date, payment_value, enrollment.number_payments}
+    {:ok, enrollment, due_date, payment_value, enrollment.number_payments}
   end
 
-  defp create_payments({enrollment, due_date, value, counter}) do
+  defp get_payment_value(error), do: error
+
+  defp create_payments({:ok, enrollment, due_date, value, counter}) do
     case create_payment(due_date, value, enrollment.id) do
       {:error, error} -> {:error, error}
       _ ->
@@ -44,10 +46,12 @@ defmodule Billing.Enrollments.Create do
         due_date = increase_month(due_date)
         case counter == 0 do
           true -> {:ok, enrollment}
-          false -> create_payments({enrollment, due_date, value, counter})
+          false -> create_payments({:ok, enrollment, due_date, value, counter})
         end
     end
   end
+
+  defp create_payments(error), do: error
 
   defp create_payment(due_date, value, id) do
     Payments.Create.call(%{
