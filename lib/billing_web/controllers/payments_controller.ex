@@ -7,11 +7,7 @@ defmodule BillingWeb.PaymentsController do
   action_fallback FallbackController
 
   def create(conn, params) do
-    with {:ok, %Payment{} = payment} <- Billing.create_payment(params) do
-      conn
-      |> put_status(:created)
-      |> render("create.json", payment: payment)
-    end
+    Billing.try_create_payment(params)
   end
 
   def show(conn, %{"id" => id}) do

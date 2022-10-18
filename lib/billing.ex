@@ -30,7 +30,7 @@ defmodule Billing do
   defdelegate create_institution(params), to: InstitutionCreate, as: :call
   defdelegate create_student(params), to: StudentCreate, as: :call
   defdelegate create_enrollment(params), to: EnrollmentCreate, as: :call
-  defdelegate create_payment(params), to: PaymentCreate, as: :call
+  defdelegate try_create_payment(params), to: PaymentCreate, as: :call_error
 
   defdelegate get_institution_by_id(id), to: InstitutionGet, as: :by_id
   defdelegate get_student_by_id(id), to: StudentGet, as: :by_id
