@@ -10,4 +10,11 @@ defmodule Billing.Payments.Get do
       payment_schema -> {:ok, payment_schema}
     end
   end
+
+  def all() do
+    case Repo.all(Payment) do
+      nil -> {:error, Error.build_not_found}
+      all_payments -> {:ok, all_payments}
+    end
+  end
 end

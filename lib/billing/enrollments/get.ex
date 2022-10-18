@@ -10,4 +10,11 @@ defmodule Billing.Enrollments.Get do
       enrollment_schema -> {:ok, enrollment_schema}
     end
   end
+
+  def all() do
+    case Repo.all(Enrollment) do
+      nil -> {:error, Error.build_not_found}
+      all_enrollments -> {:ok, all_enrollments}
+    end
+  end
 end

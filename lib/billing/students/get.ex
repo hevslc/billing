@@ -10,4 +10,11 @@ defmodule Billing.Students.Get do
       student_schema -> {:ok, student_schema}
     end
   end
+
+  def all() do
+    case Repo.all(Student) do
+      nil -> {:error, Error.build_not_found}
+      all_students -> {:ok, all_students}
+    end
+  end
 end

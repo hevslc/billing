@@ -1,7 +1,7 @@
 defmodule BillingWeb.InstitutionsView do
   use BillingWeb, :view
-
   alias Billing.Institution
+  alias BillingWeb.InstitutionsView
 
   def render("create.json", %{institution: %Institution{} = institution}) do
     %{
@@ -16,4 +16,8 @@ defmodule BillingWeb.InstitutionsView do
   end
 
   def render("institution.json", %{institution: %Institution{} = institution}), do: %{institution: institution}
+
+  def render("index.json", %{institutions: institutions}) do
+    %{institutions: render_many(institutions, InstitutionsView, "institution.json")}
+  end
 end

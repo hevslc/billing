@@ -6,6 +6,14 @@ defmodule BillingWeb.InstitutionsController do
 
   action_fallback FallbackController
 
+  def index(conn, _params) do
+    with {:ok, institutions} <- Billing.get_all_institutions do
+      conn
+      |> put_status(:ok)
+      |> render("index.json", institutions: institutions)
+    end
+  end
+
   def create(conn, params) do
     with {:ok, %Institution{} = institution} <- Billing.create_institution(params) do
       conn

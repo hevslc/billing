@@ -37,6 +37,11 @@ defmodule Billing do
   defdelegate get_enrollment_by_id(id), to: EnrollmentGet, as: :by_id
   defdelegate get_payment_by_id(id), to: PaymentGet, as: :by_id
 
+  defdelegate get_all_institutions, to: InstitutionGet, as: :all
+  defdelegate get_all_students, to: StudentGet, as: :all
+  defdelegate get_all_enrollments, to: EnrollmentGet, as: :all
+  defdelegate get_all_payments, to: PaymentGet, as: :all
+
   defdelegate delete_institution(id), to: InstitutionDelete, as: :call
   defdelegate delete_student(id), to: StudentDelete, as: :call
   defdelegate delete_enrollment(id), to: EnrollmentDelete, as: :call

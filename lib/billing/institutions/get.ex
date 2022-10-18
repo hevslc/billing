@@ -10,4 +10,11 @@ defmodule Billing.Institutions.Get do
       institution_schema -> {:ok, institution_schema}
     end
   end
+
+  def all() do
+    case Repo.all(Institution) do
+      nil -> {:error, Error.build_not_found}
+      all_institutions -> {:ok, all_institutions}
+    end
+  end
 end
